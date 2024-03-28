@@ -19,4 +19,3 @@ def get_username_from_token(token: str = Depends(oauth2_scheme)):
         pass  # тут какая-то логика ошибки истечения срока действия токена
     except jwt.InvalidTokenError:
         pass  # тут какая-то логика обработки ошибки декодирования токена
-

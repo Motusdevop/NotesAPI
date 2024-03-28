@@ -20,8 +20,18 @@ class NotesRepository:
             return data
 
     @classmethod
-    def get_one(cls, user: UserOrm, note_id):
-        pass
+    def get_one(cls, username: str, note_id: int):
+        query = select(UserOrm).where(UserOrm.username == username)
+
+        with session_factory() as session:
+            result = session.execute(query)
+            user = result.scalar_one()
+
+            for note in user.notes:
+                if note.id == note_id:
+                    return note
+
+            return None
 
     @classmethod
     def create(cls, username: str, note_in: Note):
